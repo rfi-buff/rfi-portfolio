@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RFI Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <div class="app-wrap" id="app-wrap" style="display:none">
+
+    <header class="app-header">
+      <div class="header-left">
+        <i class="ti ti-chart-candlestick"></i>
+        <h1>RFI Portfolio</h1>
+      </div>
+      <div class="header-right">
+        <div class="user-badge" id="user-badge"></div>
+        <span class="status" id="last-update">Belum diperbarui</span>
+        <button class="btn-icon" id="btn-refresh" onclick="refreshAll()" title="Refresh harga">
+          <i class="ti ti-refresh"></i>
+        </button>
+        <button class="btn-primary" id="btn-open-add" onclick="togglePanel()">
+          <i class="ti ti-plus"></i> Tambah Saham
+        </button>
+        <button class="btn-icon" id="btn-logout" title="Sign out">
+          <i class="ti ti-logout"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Add Stock Panel -->
+    <div class="add-panel" id="add-panel">
+      <h3>Tambah Saham Baru</h3>
+      <div class="form-grid">
+        <div class="field">
+          <label for="f-code">Kode Saham</label>
+          <input id="f-code" type="text" placeholder="BBCA" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="f-date">Tanggal Beli</label>
+          <input id="f-date" type="date">
+        </div>
+        <div class="field">
+          <label for="f-lot">Lot</label>
+          <input id="f-lot" type="number" placeholder="1" min="1">
+        </div>
+        <div class="field">
+          <label for="f-price">Harga Beli (Rp/lembar)</label>
+          <input id="f-price" type="number" placeholder="10000" min="0">
+        </div>
+        <div class="field">
+          <label for="f-broker">Sekuritas</label>
+          <input id="f-broker" type="text" placeholder="Mirae Asset">
+        </div>
+      </div>
+      <div class="form-err" id="form-err">Harap isi semua kolom yang diperlukan.</div>
+      <div class="form-actions">
+        <button class="btn-save" onclick="submitRow()">
+          <i class="ti ti-check"></i> Simpan
+        </button>
+        <button class="btn-cancel" onclick="togglePanel()">Batal</button>
+      </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-row">
+      <div class="scard">
+        <div class="slabel">Total Modal</div>
+        <div class="sval" id="s-modal">Rp 0</div>
+      </div>
+      <div class="scard">
+        <div class="slabel">Nilai Pasar</div>
+        <div class="sval" id="s-market">—</div>
+      </div>
+      <div class="scard">
+        <div class="slabel">Gain / Loss</div>
+        <div class="sval" id="s-gain">—</div>
+      </div>
+      <div class="scard">
+        <div class="slabel">Return</div>
+        <div class="sval" id="s-pct">—</div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="tc">No</th>
+            <th class="tl">Kode</th>
+            <th class="tl">Tgl Beli</th>
+            <th>Lot</th>
+            <th>Harga Beli</th>
+            <th>Nilai Modal</th>
+            <th>Harga Pasar</th>
+            <th>Gain/Loss (Rp)</th>
+            <th>%</th>
+            <th class="tl">Sekuritas</th>
+            <th class="tc">Chart</th>
+            <th class="tc"></th>
+          </tr>
+        </thead>
+        <tbody id="stock-body"></tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- Loading screen shown while auth state resolves -->
+  <div id="loading-screen" style="display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:12px">
+    <i class="ti ti-chart-candlestick" style="font-size:36px;color:#1D9E75"></i>
+    <p style="font-size:14px;color:#6c757d">Loading...</p>
+  </div>
+
+  <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
